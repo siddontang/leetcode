@@ -1,12 +1,5 @@
 #include "leetcode.h"
 
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x): val(x), next(NULL) {}
-};
-
-
 class Solution {
 public:
     ListNode *sortList(ListNode *head) {
@@ -130,14 +123,6 @@ public:
     }
 };
 
-void printListNode(ListNode* a) {
-    cout << "list nodes: ";
-    while(a) {
-        cout << a->val << "\t";
-        a = a->next;
-    }   
-    cout << endl;
-}
 
 int main() {
     ListNode n1(6);
