@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <string.h>
 #include <map>
+#include <set>
 #include <limits>
 #include <list>
 
@@ -26,3 +27,10 @@ void printListNode(ListNode* a) {
     }   
     cout << endl;
 }
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
