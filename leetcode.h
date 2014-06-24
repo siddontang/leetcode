@@ -7,6 +7,7 @@
 #include <string.h>
 #include <map>
 #include <limits>
+#include <list>
 
 using namespace std;
 
