@@ -40,3 +40,9 @@ struct RandomListNode {
     RandomListNode *next, *random;
     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
 };
+
+struct UndirectedGraphNode {
+    int label;
+    vector<UndirectedGraphNode *> neighbors;
+    UndirectedGraphNode(int x) : label(x) {};
+};
