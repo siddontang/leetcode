@@ -5,10 +5,14 @@
 #include <iostream>
 #include <algorithm>
 #include <string.h>
+#include <deque>
 #include <map>
 #include <set>
 #include <limits>
 #include <list>
+#include <unordered_map>
+#include <unordered_set>
+#include <initializer_list>
 
 using namespace std;
 
