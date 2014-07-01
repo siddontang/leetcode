@@ -50,3 +50,11 @@ struct UndirectedGraphNode {
     vector<UndirectedGraphNode *> neighbors;
     UndirectedGraphNode(int x) : label(x) {};
 };
+
+struct TreeLinkNode {
+    int val;
+    TreeLinkNode *left;
+    TreeLinkNode *right;
+    TreeLinkNode *next;
+    TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
+};
