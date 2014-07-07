@@ -32,6 +32,18 @@ void printListNode(ListNode* a) {
     cout << endl;
 }
 
+ListNode* createListNode(const vector<int>& v) {
+    ListNode dummy(0);
+    ListNode* p = &dummy;
+
+    for(int i = 0; i < v.size(); i++) {
+        p->next = new ListNode(v[i]);
+        p = p->next;
+    }
+
+    return dummy.next;
+}
+
 struct TreeNode {
     int val;
     TreeNode *left;
