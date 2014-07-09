@@ -81,3 +81,10 @@ void printVector(const vector<T>& a) {
 
     cout << endl;
 }
+
+template<typename T>
+void printVector2(const vector<vector<T> >& a) {
+    for(int i = 0; i < a.size(); i++) {
+        printVector(a[i]);    
+    }
+}
