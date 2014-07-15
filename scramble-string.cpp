@@ -7,19 +7,13 @@ public:
             return false;
         }
 
-        int v1 = 0;
-        int v2 = 0;
+        char v =  0;
         for(int i = 0; i < s1.size(); i++) {
-            v1 += s1[i];
-            v2 += s2[i];
+            v ^= (s1[i] ^ s2[i]);
         }
 
-        if(v1 != v2) {
+        if(v != 0) {
             return false;
-        }
-
-        if(s1.size() == 1) {
-            return true;
         }
 
         for(int i = 1; i < s1.size(); i++) {
