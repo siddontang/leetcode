@@ -88,3 +88,10 @@ void printVector2(const vector<vector<T> >& a) {
         printVector(a[i]);    
     }
 }
+
+struct Interval {
+    int start;
+    int end;
+    Interval() : start(0), end(0) {}
+    Interval(int s, int e) : start(s), end(e) {}
+};
