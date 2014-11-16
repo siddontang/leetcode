@@ -26,7 +26,9 @@ public:
                 start = mid;
             } else if(num[mid] < num[start]) {
                 stop = mid;
-            } 
+            } else {
+                start++;
+            }
         }
 
         return min(num[start], num[stop]);
@@ -36,14 +38,18 @@ public:
 int main() {
     Solution sln;
 
-    vector<int> v{1,2,3,4,5,6,7};
-    int m = sln.findMin(v);
+    vector<int> num{1,1};
 
-    cout << m << endl;
+    cout << sln.findMin(num) << endl;
 
-    v = vector<int>{4,5,6,7,0,1,2};
-    m = sln.findMin(v);
+    num = vector<int>{3,3,1,3};
+    cout << sln.findMin(num) << endl;
 
-    cout << m << endl;
+    num = vector<int>{3,1,3};
+    cout << sln.findMin(num) << endl;
+
+    num = vector<int>{3,5,1};
+    cout << sln.findMin(num) << endl;
+
     return 0;
 }
