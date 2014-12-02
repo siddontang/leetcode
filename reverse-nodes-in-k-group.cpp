@@ -10,51 +10,34 @@ public:
         ListNode dummy(0);
         dummy.next = head;
         ListNode* p = &dummy;
+        ListNode* prev = &dummy;
 
         while(p) {
-            ListNode* prev = p;
-            int i = 0;
-            for(i = 0; i < k; i++) {
+            prev = p;
+            for(int i = 0; i < k; i++){
                 p = p->next;
                 if(!p) {
-                    break;
+                    return dummy.next;
                 }
             }
 
-            if(i == k) {
-                ListNode* nn = p->next;
-                p->next = NULL;
-                ListNode* first = prev->next;
-
-                prev->next = reverse(first);
-                first->next = nn;
-                p = first;
-            } else{
-                break;
-            }
+            p = reverse(prev, p->next);            
         }
 
         return dummy.next;
     }
 
-    ListNode* reverse(ListNode* n1) {
-        if(!n1) {
-            return n1;
+    ListNode* reverse(ListNode* prev, ListNode* end) {
+        ListNode* p = prev->next;
+
+        while(p->next != end) {
+            ListNode* n = p->next;
+            p->next = n->next;
+            n->next = prev->next;
+            prev->next = n;
         }
 
-        ListNode dummy(0);
-        ListNode* p = &dummy;
-        while(n1) {
-            ListNode* nn = n1->next;
-
-            ListNode* t = p->next;
-            p->next = n1;
-            n1->next = t;
-
-            n1 = nn;
-        }
-
-        return dummy.next;
+        return p;
     }
 };
 
@@ -62,6 +45,12 @@ int main() {
     Solution sln;
 
     ListNode* n = createListNode(vector<int>({1, 2, 3, 4, 5}));
+
+    n = sln.reverseKGroup(n, 5);
+
+    printListNode(n);
+
+n = createListNode(vector<int>({1, 2, 3, 4}));
 
     n = sln.reverseKGroup(n, 2);
 
