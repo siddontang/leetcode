@@ -7,119 +7,54 @@ public:
             return head;
         }
 
-        int step = 1;
+        ListNode* fast = head;
+        ListNode* slow = head;
+
+        while(fast->next && fast->next->next) {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+
+        fast = slow->next;
+        slow->next = NULL;
+
+        ListNode* p1 = sortList(head);
+        ListNode* p2 = sortList(fast);
+
+        return merge(p1, p2);
+    }
+
+    ListNode *merge(ListNode* l1, ListNode* l2) {
+        if(!l1) {
+            return l2;
+        } else if (!l2) {
+            return l1;
+        } else if (!l1 && !l2) {
+            return NULL;
+        }
 
         ListNode dummy(0);
-        dummy.next = head;
+        ListNode* p = &dummy;
 
-        ListNode* prev = NULL;
-        ListNode* next = NULL;
-
-        ListNode* n1 = NULL;
-        ListNode* n2 = NULL;
-
-        ListNode* first = NULL;
-        ListNode* last = NULL;
-
-        prev = &dummy;
-
-        bool newLoop = true;
-
-        while(true) {
-            n1 = prev->next;
-            n2 = n1;
-
-            next = NULL;
-            first = NULL;
-            last = NULL;
-
-            for(int i = 0; i < step; i++) {
-                n1 = n2;
-                n2 = n2->next;
-
-                if(i == step - 1 || n2 == NULL) {
-                    n1->next = NULL;
-                    break;
-                }
+        while(l1 && l2) {
+            if(l1->val < l2->val) {
+                p->next = l1;
+                l1 = l1->next;
+            } else {
+                p->next = l2;
+                l2 = l2->next;
             }
 
-            if(n2 == NULL && newLoop) {
-                break;
-            }
+            p = p->next;
+        }
 
-            newLoop = false;
-
-            n1 = n2;
-            for(int i = 0; i < step && n2 != NULL; i++) {
-                next = n2->next;
-                if(next == NULL) {
-                    break;
-                } else if (i == step - 1) {
-                    n2->next = NULL;
-                    break;
-                }
-                n2 = n2->next;
-            }
-
-            merge(prev->next, n1, &first, &last);   
-
-            prev->next = first;
-            last->next = next;
-
-            prev = last; 
-
-            if(next == NULL) {
-                prev = &dummy;
-                newLoop = true;
-                step = 2 * step;
-            }  
+        if(l1) {
+            p->next = l1;
+        } else if(l2){
+            p->next = l2;
         }
 
         return dummy.next;
-    }
-
-    void merge(ListNode *n1, ListNode *n2, ListNode **first, ListNode **last) {        
-        ListNode* head = NULL;
-        ListNode* p = NULL;
-
-
-        if(n2 == NULL || n1->val < n2->val) {
-            head = n1;
-            n1 = n1->next;
-        } else {
-            head = n2;
-            n2 = n2->next;
-        }
-
-        p = head;
-
-        while(n1 != NULL && n2 != NULL) {
-            if(n1->val < n2->val) {
-                p->next = n1;
-                n1 = n1->next;
-            } else {
-                p->next = n2;
-                n2 = n2->next;
-            }
-
-            p = p->next;
-        }
-
-        if(n1 != NULL) {
-            p->next = n1;
-        } else if(n2 != NULL) {
-            p->next = n2;
-        }
-
-        while(true) {
-            if(p->next == NULL) {
-                *last = p;
-                break;
-            }
-            p = p->next;
-        } 
-
-        *first = head;
     }
 };
 

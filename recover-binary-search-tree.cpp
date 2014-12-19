@@ -2,26 +2,61 @@
 
 class Solution {
 public:
-    vector<TreeNode*> ns;
-    vector<int> vals;
     void recoverTree(TreeNode *root) {
-        inorder(root);
+        TreeNode* cur = 0;
+        TreeNode* pre = 0;
+        TreeNode* p1 = 0;
+        TreeNode* p2 = 0;
+        TreeNode* preCur = 0; 
 
-        sort(vals.begin(), vals.end());
-        for(int i = 0; i < ns.size(); i++) {
-            ns[i]->val = vals[i];
-        }
-    }
+        bool found = false;
 
-    void inorder(TreeNode* node) {
-        if(!node) {
+        if(!root) {
             return;
         }
 
-        inorder(node->left);
-        ns.push_back(node);
-        vals.push_back(node->val);
-        inorder(node->right);
+        cur = root;
+        while(cur) {
+            if(!cur->left) {
+                if(preCur && preCur->val > cur->val) {
+                    if(!found) {
+                        p1 = preCur;
+                        found = true;
+                    }
+                    p2 = cur;
+                }
+
+                preCur = cur;
+                cur = cur->right;
+            } else {
+                pre = cur->left;
+                while(pre->right && pre->right != cur) {
+                    pre = pre->right;
+                }
+
+                if(!pre->right) {
+                    pre->right = cur;
+                    cur = cur->left;
+                } else {
+                    if(preCur->val > cur->val) {
+                        if(!found) {
+                            p1 = preCur;
+                            found = true;
+                        }
+                        p2 = cur;
+                    }
+                    preCur = cur;
+                    pre->right = NULL;
+                    cur = cur->right;
+                }
+            }
+        }
+
+        if(p1 && p2) {
+            int t = p1->val;
+            p1->val = p2->val;
+            p2->val = t;
+        }
     }
 };
 

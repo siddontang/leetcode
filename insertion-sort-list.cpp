@@ -9,30 +9,21 @@ public:
 
         ListNode dummy(0);
 
-        ListNode *n1 = NULL;
-        ListNode *n2 = NULL;
-        ListNode *next = NULL;
+        ListNode* p = &dummy;
 
-        while(head != NULL) {
-
-            n1 = &dummy;
-            n2 = dummy.next;
-
-            while(n2 != NULL) {
-                if(n2->val > head->val) {
-                    break;
-                }
-
-                n1 = n2;
-                n2 = n2->next;
+        ListNode* cur = head;
+        while(cur) {
+            p = &dummy;
+            
+            while(p->next && p->next->val <= cur->val) {
+                p = p->next;
             }
 
-            next = head->next;
-            
-            n1->next = head;
-            head->next = n2;
+            ListNode* n = p->next;
+            p->next = cur;
 
-            head = next;
+            cur = cur->next;
+            p->next->next = n;
         }
 
         return dummy.next;
