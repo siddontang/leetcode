@@ -26,8 +26,13 @@ public:
                 start = mid;
             } else if(num[mid] < num[start]) {
                 stop = mid;
-            } else {
+            } else if(num[mid] < num[stop]){
+                stop = mid;
+            } else if(num[mid] > num[stop]){
                 start++;
+            } else{
+                start++;
+                stop--;
             }
         }
 
